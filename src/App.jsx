@@ -9,9 +9,7 @@ function Square ( { value, onSquareClick } ) {
     );
 }
 
-function Board () {
-    const [ squares, setSquares ] = useState( Array( 9 ).fill( null ) );
-    const [ xIsNext, setXIsNext ] = useState( true );
+function Board ( { xIsNext, squares, onPlay } ) {
 
     const winner = calculateWinner( squares );
     let status;
@@ -28,13 +26,10 @@ function Board () {
         const newSquares = squares.slice();
         if ( xIsNext ) {
             newSquares[ i ] = 'X';
-            setXIsNext( false );
         } else {
             newSquares[ i ] = 'O';
-            setXIsNext( true );
         }
-        setSquares( newSquares );
-        setXIsNext( !xIsNext );
+        onPlay( newSquares );
     }
 
     return (
@@ -62,10 +57,20 @@ function Board () {
 }
 
 export default function Game () {
+    const [ history, setHistory ] = useState( [ Array( 9 ).fill( null ) ] );
+    const [ xIsNext, setXIsNext ] = useState( true );
+
+    const currentSquares = history[ history.length - 1 ];
+
+    function handelPlay ( nextSquares ) {
+        setXIsNext( !xIsNext );
+        setHistory( [ ...history, nextSquares ] )
+    }
+
     return (
         <div className="container mx-auto">
             <div>
-                <Board/>
+                <Board xIsNext={ xIsNext } squares={ currentSquares } onPlay={ handelPlay }/>
             </div>
             <div>
                 <ol>{/*TBD*/ }</ol>
