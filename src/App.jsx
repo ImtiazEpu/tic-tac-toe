@@ -39,8 +39,8 @@ export default function Board () {
 
     return (
         <>
-            <div className="flex justify-center">
-                <div>{ status }</div>
+            <div className="flex justify-center my-4">
+                <div className={ "text-lg" }>{ status }</div>
             </div>
             <div className="flex justify-center">
                 <Square value={ squares[ 0 ] } onSquareClick={ () => handleClick( 0 ) }/>
