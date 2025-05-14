@@ -67,13 +67,27 @@ export default function Game () {
         setHistory( [ ...history, nextSquares ] )
     }
 
+    const moves = history.map( ( step, move ) => {
+        let desc;
+        if ( move === 0 ) {
+            desc = 'Go to game start';
+        } else {
+            desc = `Go to move #${ move }`;
+        }
+        return (
+            <li key={ move }>
+                <button>{ desc }</button>
+            </li>
+        );
+    } )
+
     return (
         <div className="container mx-auto">
             <div>
                 <Board xIsNext={ xIsNext } squares={ currentSquares } onPlay={ handelPlay }/>
             </div>
             <div>
-                <ol>{/*TBD*/ }</ol>
+                <ol>{ moves }</ol>
             </div>
         </div>
 
